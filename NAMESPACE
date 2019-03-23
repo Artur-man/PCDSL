@@ -1,0 +1,7 @@
+exportPattern("^[[:alpha:]]+")
+importFrom("graphics", "polygon")
+importFrom("stats", "dist", "runif")
+importFrom("utils", "combn")
+import("HapEstXXR")
+import("geometry")
+import("cccd")
