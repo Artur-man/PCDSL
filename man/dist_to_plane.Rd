@@ -4,15 +4,15 @@
 \alias{dist_to_plane}
 \title{Calculate the distance from a set of points to a plane}
 \usage{
-dist_to_plane(p, pla)
+dist_to_plane(p, plane)
 }
 \arguments{
-\item{p}{M-by-N matrix in which each row is the Cartesian coordinates of a point.}
+\item{p}{m-by-d matrix in which each row is the Cartesian coordinates of a point.}
 
-\item{pla}{N-by-N matrix representing a plane.}
+\item{plane}{d-by-d matrix representing a plane.}
 }
 \value{
-The set of distances between each point in p and plane pla.
+The set of distances between each point in p and a plane
 }
 \description{
 Calculate the distance from a set of points to a plane

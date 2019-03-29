@@ -2,22 +2,22 @@
 % Please edit documentation in R/pcd-cs.R
 \name{pcd_cs_simp}
 \alias{pcd_cs_simp}
-\title{Find the pcd of a single simplex for a given parameter r.}
+\title{Find the central similarity PCD (CS-PCD) of the target class restricted to a single d-simplex for a given parameter tau.}
 \usage{
 pcd_cs_simp(x, y, bary, tau)
 }
 \arguments{
 \item{x}{The set of points of the target class}
 
-\item{y}{The coordinates of the vertices of the n-simplex}
+\item{y}{The coordinates of the vertices of the d-simplex}
 
-\item{bary}{The barycentric coordinates of the points of x with respect to the n-simplex}
+\item{bary}{The barycentric coordinates of the points of x with respect to the d-simplex}
 
 \item{tau}{The CS-PCD parameter}
 }
 \value{
-The dominating set of the n-simplex and the associated proximity regions
+A list of objects associated with the dominating set of the CS-PCD restricted to a d-simplex.
 }
 \description{
-Find the pcd of a single simplex for a given parameter r.
+Find the central similarity PCD (CS-PCD) of the target class restricted to a single d-simplex for a given parameter tau.
 }

@@ -2,18 +2,18 @@
 % Please edit documentation in R/pcdfunctions.R
 \name{get_plane_par_to}
 \alias{get_plane_par_to}
-\title{Find a parallel plane passing a point, by means of orthogonal projection}
+\title{Find a parallel plane passing a reference point.}
 \usage{
-get_plane_par_to(x, pla)
+get_plane_par_to(x, plane)
 }
 \arguments{
 \item{x}{The Cartesian coordinates of a reference point}
 
-\item{pla}{N-by-N matrix representing a plane.}
+\item{plane}{d-by-d matrix representing a plane.}
 }
 \value{
-A plane passing the point x which the parallel to the plane pla.
+A plane passing a reference point x which is parallel to the plane.
 }
 \description{
-Find a parallel plane passing a point, by means of orthogonal projection
+Find a parallel plane passing a reference point.
 }

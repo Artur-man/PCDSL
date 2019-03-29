@@ -2,20 +2,53 @@
 % Please edit documentation in R/pcd.R
 \name{pcd_inhull_classify}
 \alias{pcd_inhull_classify}
-\title{Classify a set of unlabelled data based on a PCD. Returns NA for points outside of the convex hull of the non-target classes.}
+\title{Classify an unlabelled data set with a PCD wherein the cover of
+the target class is restricted to inside of the convex hull of the non-target class.
+Returns NA for points outside of the convex hull of the non-target classes.}
 \usage{
-pcd_inhull_classify(datan, graph, param)
+pcd_inhull_classify(data, graph)
 }
 \arguments{
-\item{datan}{The unlabelled data set}
+\item{data}{An m-by-d matrix of the test data set.}
 
-\item{graph}{A proximity catch digraph (PCD)}
-
-\item{param}{The value of the parameter of the associated proximity map of the PCD}
+\item{graph}{A proximity catch digraph (PCD).}
 }
 \value{
-Predicted labels of the unlabelled data set.
+Predicted labels of the test data set.
 }
 \description{
-Classify a set of unlabelled data based on a PCD. Returns NA for points outside of the convex hull of the non-target classes.
+Classify an unlabelled data set with a PCD wherein the cover of
+the target class is restricted to inside of the convex hull of the non-target class.
+Returns NA for points outside of the convex hull of the non-target classes.
+}
+\examples{
+
+# input parameters
+ntest <- 100     # test data size for each class
+nx <- 300        # training data size of x class (majority)
+r <- 0.1         # Imbalance Ratio
+de <- 0.5        # delta, the overlapping parameter
+dimx <- 2        # number of dimensions
+
+# training the classifier
+set.seed(1)
+x0 <- matrix(runif(dimx*nx,0,1),nrow=nx)
+x1 <- matrix(runif(dimx*nx*r,de,1+de),nrow=nx*r)
+x <- rbind(x0,x1)
+classes <- rep(1:2,c(nx,nx*r))
+graph_pcd <- pcd_inhull_classifier(x,classes,map="pe",param = 1)
+
+# testing
+tx0 <- matrix(runif(dimx*ntest,0,1),nrow=ntest)
+tx1 <- matrix(runif(dimx*ntest,de,1+de),nrow=ntest)
+tx <- rbind(tx0,tx1)
+tclsdata <- rep(1:2,rep(ntest,2))
+predicted_pcd_tx <- pcd_inhull_classify(tx,graph_pcd)
+
+# classifying with the alternative classifier for those points that are not
+# classified
+library(e1071)
+svm_x <- svm(x = x, y = factor(classes), kernel="radial", gamma = 0.1)
+predicted_svm_tx <- predict(svm_x,tx)
+predicted_pcd_tx[is.na(predicted_pcd_tx)] <-predicted_svm_tx[is.na(predicted_pcd_tx)]
 }

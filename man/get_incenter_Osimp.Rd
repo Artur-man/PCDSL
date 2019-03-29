@@ -4,10 +4,10 @@
 \alias{get_incenter_Osimp}
 \title{Get the incenter of an outer simplex}
 \usage{
-get_incenter_Osimp(pla, m)
+get_incenter_Osimp(facet, m)
 }
 \arguments{
-\item{pla}{N-by-N matrix representing a facet of the convex hull of the non-target class}
+\item{facet}{d-by-d matrix representing a facet of the convex hull of the non-target class}
 
 \item{m}{The median point of the convex hull of the non-target class}
 }

@@ -1,13 +1,13 @@
 Package: PCDSL
 Type: Package
 Title: Proximity Catch Digraphs: Statistical Learning  
-Version: 1.0
-Depends: cccd, geometry, HapEstXXR
 Author: Artür Manukyan, Elvan Ceyhan
+Version: 1.0
 Maintainer: Artür Manukyan <artur-man@hotmail.com>
-Description: Classification methods based on Proximity Catch Digraphs. 
-             Proximity Catch Digraphs (PCDs) are special types of proximity graphs.
+Description: Classification methods based on Proximity Catch Digraphs. Proximity Catch Digraphs (PCDs) are special types of proximity graphs.
 License: GPL-3
 Encoding: UTF-8
 URL: https://github.com/Artur-man/PCDSL
 BugReports: https://github.com/Artur-man/PCDSL/issues
+RoxygenNote: 6.1.1
+Imports: cccd, geometry, rje, e1071, flexclust

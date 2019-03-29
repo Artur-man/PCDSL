@@ -2,7 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{draw_outer_triangle}
 \alias{draw_outer_triangle}
-\title{Drawing an outer triangle}
+\title{Drawing a outer triangle (outer simplex in 2 dimensions)}
 \usage{
 draw_outer_triangle(outer_tri_list, ...)
 }
@@ -12,5 +12,5 @@ draw_outer_triangle(outer_tri_list, ...)
 \item{...}{Additional arguements passed on to the polygon function}
 }
 \description{
-Drawing an outer triangle
+Drawing a outer triangle (outer simplex in 2 dimensions)
 }

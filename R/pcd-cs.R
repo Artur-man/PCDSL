@@ -1,11 +1,11 @@
-#' Find the pcd of a single simplex for a given parameter r.
+#' Find the central similarity PCD (CS-PCD) of the target class restricted to a single d-simplex for a given parameter tau.
 #'
 #' @param x The set of points of the target class
-#' @param y The coordinates of the vertices of the n-simplex
-#' @param bary The barycentric coordinates of the points of x with respect to the n-simplex
+#' @param y The coordinates of the vertices of the d-simplex
+#' @param bary The barycentric coordinates of the points of x with respect to the d-simplex
 #' @param tau The CS-PCD parameter
 #'
-#' @return The dominating set of the n-simplex and the associated proximity regions
+#' @return A list of objects associated with the dominating set of the CS-PCD restricted to a d-simplex.
 pcd_cs_simp <- function(x,y,bary,tau)
 {
   if(!is.matrix(bary)) bary <- matrix(bary,nrow=1)
@@ -63,14 +63,14 @@ pcd_cs_simp <- function(x,y,bary,tau)
   return(list(D=D,Simp=Dsimp))
 }
 
-#' Find the pcd of an outer simplex for a given parameter r.
+#' Find the central similarity PCD (CS-PCD) of the target class restricted to a single outer simplex for a given parameter tau.
 #'
 #' @param x The set of points of the target class
-#' @param y The coordinates of the vertices of the outer simplex
-#' @param CM The median point of the convex hull of the non-target class points
+#' @param y The coordinates of the vertices of the  outer simplex
+#' @param CM The median point of the convex hull of the non-target class
 #' @param tau The CS-PCD parameter
 #'
-#' @return The dominating point of the outer simplex and the associated proximity region
+#' @return A list of objects associated with the dominating set of the CS-PCD restricted to a outer simplex
 pcd_cs_Osimp <- function(x,y,CM,tau)
 {
   if(!is.matrix(x)) x <- matrix(x,nrow=1)

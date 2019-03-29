@@ -1,6 +1,6 @@
-#' Drawing a triangle
+#' Drawing a triangle (2-simplex)
 #'
-#' @param tri_list A list of triangles, or a single triangle
+#' @param tri_list A list of triangles (2-simplices), or a single triangle (2-simplex)
 #' @param ... Additional arguements passed on to the polygon function
 draw_triangle <- function(tri_list, ...) {
 
@@ -23,7 +23,7 @@ draw_triangle <- function(tri_list, ...) {
   }
 }
 
-#' Drawing an outer triangle
+#' Drawing a outer triangle (outer simplex in 2 dimensions)
 #'
 #' @param outer_tri_list A list of outer triangles, or a single outer triangle
 #' @param ... Additional arguements passed on to the polygon function
@@ -53,7 +53,7 @@ draw_outer_triangle <- function(outer_tri_list,...){
 #'
 #' @param A The adjacency matrix
 #'
-#' @return S A subset of the vertex set of the graph given the adjacency matrix A
+#' @return S A subset (the approximate minimum dominating set) of the vertex set of the graph given the adjacency matrix A
 dominate_greedy_matrix <- function(A)
 {
 
@@ -74,37 +74,4 @@ dominate_greedy_matrix <- function(A)
   }
 
   return(S)
-}
-
-#' Finding the exact minimum dominating set of graph given its adjacency matrix
-#' with the brute force algorithm (checking all possible solutions)
-#'
-#' @param A The adjacency matrix
-#'
-#' @return S A subset of the vertex set of the graph given the adjacency matrix A
-dominate_brute_matrix <- function(A)
-{
-
-  if (!is.matrix(A)) {
-    A <- matrix(A, nrow=1)
-  }
-
-  n <- nrow(A)
-  D <- NULL
-  for (i in 1:n) {
-    cmb <- combn(n, i)
-    for( k in 1:ncol(cmb)) {
-      sub_A <- A[cmb[, k], ]
-      sub_A <- matrix(sub_A, ncol = n)
-      mat_check <- apply(sub_A, 2, any)
-      if (all(mat_check)) {
-        D <- cmb[, k]
-        break
-      }
-    }
-    if (!is.null(D)) {
-      break
-    }
-  }
-  return(D)
 }

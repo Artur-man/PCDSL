@@ -2,18 +2,18 @@
 % Please edit documentation in R/pcdfunctions.R
 \name{get_line_plane_inter}
 \alias{get_line_plane_inter}
-\title{Find the point where the ray and the plane intersects}
+\title{Find the point of intersection between a ray and a plane.}
 \usage{
-get_line_plane_inter(ray, pla)
+get_line_plane_inter(ray, plane)
 }
 \arguments{
-\item{ray}{2-by-N matrix representing a ray.}
+\item{ray}{2-by-d matrix representing a ray.}
 
-\item{pla}{N-by-N matrix representing a plane.}
+\item{plane}{d-by-d matrix representing a plane.}
 }
 \value{
-A plane passing the point x which the parallel to the plane pla.
+A point on a ray.
 }
 \description{
-Find the point where the ray and the plane intersects
+Find the point of intersection between a ray and a plane.
 }

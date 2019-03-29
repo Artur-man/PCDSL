@@ -2,18 +2,18 @@
 % Please edit documentation in R/pcdfunctions.R
 \name{get_line_par_to}
 \alias{get_line_par_to}
-\title{Find a parallel ray passing the point, by means of orthogonal projection}
+\title{Find a parallel ray passing a reference point.}
 \usage{
 get_line_par_to(x, ray)
 }
 \arguments{
 \item{x}{The Cartesian coordinates of a reference point}
 
-\item{ray}{2-by-N matrix representing a ray.}
+\item{ray}{2-by-d matrix representing a ray.}
 }
 \value{
-A plane passing the point x which the parallel to the plane pla.
+A plane passing a reference point x which is parallel to the ray.
 }
 \description{
-Find a parallel ray passing the point, by means of orthogonal projection
+Find a parallel ray passing a reference point.
 }

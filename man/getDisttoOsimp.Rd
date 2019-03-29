@@ -2,18 +2,18 @@
 % Please edit documentation in R/pcdfunctions.R
 \name{getDisttoOsimp}
 \alias{getDisttoOsimp}
-\title{Get the distances of a list of points from an outer simplex.}
+\title{Get the distances between a set of points and a outer simplex.}
 \usage{
 getDisttoOsimp(Osimp, x)
 }
 \arguments{
-\item{Osimp}{A 2N-by-N matrix representing an outer simplex.}
+\item{Osimp}{A 2d-by-d matrix representing a outer simplex.}
 
 \item{x}{The set of points of the target class}
 }
 \value{
-The set of distances for each point of x
+The set of distances between each point of x and a outer simplex
 }
 \description{
-Get the distances of a list of points from an outer simplex.
+Get the distances between a set of points and a outer simplex.
 }

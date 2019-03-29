@@ -1,218 +1,203 @@
 #' Calculate the distance from a set of points to a plane
 #'
-#' @param p M-by-N matrix in which each row is the Cartesian coordinates of a point.
-#' @param pla N-by-N matrix representing a plane.
+#' @param p m-by-d matrix in which each row is the Cartesian coordinates of a point.
+#' @param plane d-by-d matrix representing a plane.
 #'
-#' @return The set of distances between each point in p and plane pla.
-dist_to_plane <- function(p,pla)
+#' @return The set of distances between each point in p and a plane
+dist_to_plane <- function(p,plane)
 {
-  n <- get_normal_vector(pla)
+  n <- get_normal_vector(plane)
 
   if(is.matrix(p)) {
     distx <- apply(p,1,function(x){
-      tmp <- x-pla[1,]
+      tmp <- x-plane[1,]
       return(abs(crossprod(tmp,n)))
     })
   } else {
-    tmp <- p-pla[1,]
+    tmp <- p-plane[1,]
     distx <- abs(crossprod(tmp,n))
   }
 
   return(distx)
 }
 
-#' find if points are in a set of n-simplexes
+#' Find if points are in a set of d-simplices
 #'
-#' @param simp A list of N+1-by-N matrices each representing an n-simplex.
-#' @param x The Cartesian coordinates of a reference point
+#' @param simp A list of d+1-by-d matrices each representing a d-simplex.
+#' @param x The Cartesian coordinates of a reference point.
 #'
 #' @return A logical vector indicating in which simplex the reference point x resides.
 in_simp <- function(simp,x)
 {
   if(!is.matrix(x)) x <- matrix(x,ncol=length(x))
-  matx <- sapply(simp,function(z){
+  which_simp <- sapply(simp,function(z){
     baryx <- cart2bary(z,x)
-    smallbary <- apply(baryx,1,function(t){
+    in_simp_x <- apply(baryx,1,function(t){
       if(any(t < 0)){
         return(FALSE)
       } else return(TRUE)
     })
-    return(smallbary)
+    return(in_simp_x)
   },simplify = TRUE)
-  return(matx)
+  return(which_simp)
 }
 
-#' find if points are in a set of outer simplexes
+#' Find if points are in a set of outer simplices
 #'
-#' @param Osimp A list of N+1-by-N matrices each representing an outer simplex.
-#' @param x The Cartesian coordinates of a reference point
+#' @param Osimp A list of d+1-by-d matrices each representing an outer simplex.
+#' @param x The Cartesian coordinates of a reference point.
 #'
 #' @return A logical vector indicating in which simplex the reference point x resides.
 in_Osimp <- function(Osimp,x)
 {
   if(!is.matrix(x)) x <- matrix(x,ncol=length(x))
-  matx <- sapply(Osimp,function(z){
+  which_simp <- sapply(Osimp,function(z){
     baryx <- cart2genbary(z,x)
-    smallbary <- apply(baryx,1,function(t){
+    in_Osimp_x <- apply(baryx,1,function(t){
       if(all(t > 0 & t < 1)){
         return(TRUE)
       } else return(FALSE)
     })
-    return(smallbary)
+    return(in_Osimp_x)
   },simplify = TRUE)
-  return(matx)
+  return(which_simp)
 }
 
-#' Find a parallel plane passing a point, by means of orthogonal projection
+#' Find a parallel plane passing a reference point.
 #'
 #' @param x The Cartesian coordinates of a reference point
-#' @param pla N-by-N matrix representing a plane.
+#' @param plane d-by-d matrix representing a plane.
 #'
-#' @return A plane passing the point x which the parallel to the plane pla.
-get_plane_par_to <- function(x,pla){
+#' @return A plane passing a reference point x which is parallel to the plane.
+get_plane_par_to <- function(x,plane){
 
-  A <- pla[-1,]
+  A <- plane[-1,]
   if(!is.matrix(A)) A <- matrix(A,nrow=1)
-  A <- apply(A,1,function(t){return(t-pla[1,])})
+  A <- apply(A,1,function(t){return(t-plane[1,])})
   P <- A%*%(solve(t(A)%*%A))%*%t(A)
-  yx <- matrix(x-pla[1,],ncol=1)
-  newx <- pla[1,] + P%*%yx
-  newy <- t(apply(pla,1,function(t){return((t-t(newx)+x))}))
+  yx <- matrix(x-plane[1,],ncol=1)
+  newx <- plane[1,] + P%*%yx
+  newy <- t(apply(plane,1,function(t){return((t-t(newx)+x))}))
   return(newy)
 }
 
-#' Find a parallel ray passing the point, by means of orthogonal projection
+#' Find a parallel ray passing a reference point.
 #'
 #' @param x The Cartesian coordinates of a reference point
-#' @param ray 2-by-N matrix representing a ray.
+#' @param ray 2-by-d matrix representing a ray.
 #'
-#' @return A plane passing the point x which the parallel to the plane pla.
+#' @return A plane passing a reference point x which is parallel to the ray.
 get_line_par_to <- function(x,ray)
 {
   vecray <- ray[2,]-ray[1,]
   return(rbind(x,x+vecray))
 }
 
-# find the point where the line and the plane intersects
-
-#' Find the point where the ray and the plane intersects
+#' Find the point of intersection between a ray and a plane.
 #'
-#' @param ray 2-by-N matrix representing a ray.
-#' @param pla N-by-N matrix representing a plane.
+#' @param ray 2-by-d matrix representing a ray.
+#' @param plane d-by-d matrix representing a plane.
 #'
-#' @return A plane passing the point x which the parallel to the plane pla.
-get_line_plane_inter <- function(ray,pla)
+#' @return A point on a ray.
+get_line_plane_inter <- function(ray,plane)
 {
-  temp <- pla[-1,]
+  temp <- plane[-1,]
   if(!is.matrix(temp)) temp <- matrix(temp,nrow=1)
   line <- matrix(ray[2,]-ray[1,],ncol=1)
-  A <- cbind(line,apply(temp,1,function(t){return(t-pla[1,])}))
-  b <- pla[1,]-ray[1,]
+  A <- cbind(line,apply(temp,1,function(t){return(t-plane[1,])}))
+  b <- plane[1,]-ray[1,]
   a <- solve(A,b)
   return((1-a[1])*ray[1,]+a[1]*ray[2,])
 }
 
 
-#' Get the volume of the simplex.
+#' Get the volume of a d-simplex.
 #'
-#' @param simp N-by-N-1 matrix representing a simplex.
+#' @param simp d+1-by-d matrix representing a simplex.
 #'
 #' @return The volume of the simplex.
 get_plane_volume <- function(simp){
 
-  mat <- t(apply(simp,1,function(x){
+  vecs <- t(apply(simp,1,function(x){
     return(x-simp[1,])
   }))
-  n.simp <- get_normal_vector(mat)
-  mat <- rbind(n.simp,mat)
-  temp <- rep(1,nrow(mat))
-  mat <- cbind(temp,mat)
+  n.simp <- get_normal_vector(vecs)
+  vecs <- rbind(n.simp,vecs)
+  dummy <- rep(1,nrow(vecs))
+  vecs <- cbind(dummy,vecs)
 
-  return(abs(det(mat)))
+  return(abs(det(vecs)))
 }
 
 #' Get the incenter of an outer simplex
 #'
-#' @param pla N-by-N matrix representing a facet of the convex hull of the non-target class
+#' @param facet d-by-d matrix representing a facet of the convex hull of the non-target class
 #' @param m The median point of the convex hull of the non-target class
 #'
 #' @return The incenter of the outer simplex
-get_incenter_Osimp <- function(pla,m){
+get_incenter_Osimp <- function(facet,m){
 
-  cm <- get_incenter_simp(rbind(m,pla))
-  distcm <- dist_to_plane(cm,pla)
-  distm <- dist_to_plane(m,pla)
+  cm <- get_incenter_simp(rbind(m,facet))
+  distcm <- dist_to_plane(cm,facet)
+  distm <- dist_to_plane(m,facet)
   distx <- distm/(distm/distcm-2)
-  temp <- (distm+distx)/(distm-distcm)
-  temp <- as.double(temp)
-  Im <- (cm-m)*temp  + m
+  distt <- (distm+distx)/(distm-distcm)
+  distt <- as.double(distt)
+  Im <- (cm-m)*distt  + m
 
   return(Im)
 }
 
 #' Get the incenter of an n-simplex
 #'
-#' @param simp N+1-by-N matrix representing an n-simplex
+#' @param simp d+1-by-d matrix representing an d-simplex
 #'
 #' @return The incenter of the outer simplex
 get_incenter_simp <- function(simp){
 
   nc <- ncol(simp)
   allind <- 1:nrow(simp)
-  c.ind <- t(combn(allind,nc))
-  area.simp <- apply(c.ind,1,function(t){
+  c_ind <- t(combn(allind,nc))
+  area_simp <- apply(c_ind,1,function(t){
                             return(get_plane_volume(simp[t,]))
   })
-  # the bary. coord are reversed cos of c.ind
-  area.simp <- rev(area.simp)
-  bary.simp <- area.simp/sum(area.simp)
-  bary.simp <- matrix(bary.simp,nrow=1)
+  area_simp <- rev(area_simp)
+  bary_simp <- area_simp/sum(area_simp)
+  bary_simp <- matrix(bary_simp,nrow=1)
 
-  cm <- bary2cart(simp,bary.simp)
+  cm <- bary2cart(simp,bary_simp)
 
   return(cm)
 }
 
 #' Get the normal vector of a plane
 #'
-#' @param pla N-by-N matrix representing a plane
+#' @param plane d-by-d matrix representing a plane
 #'
 #' @return The normal vector of the plane.
-get_normal_vector <- function(pla){
+get_normal_vector <- function(plane){
 
-  if(!is.matrix(pla)) pla <- matrix(pla,nrow=1)
-
-  # check if more than necessary points are presented
-  # if so, erase some and keep enough of them
-  if(nrow(pla) > ncol(pla)) pla <- pla[1:ncol(pla),]
-
-  # vectors of non-target points in the list in terms of points p0
-  veclen <- nrow(pla)-1
-  vecpla <- pla[-1,]-outer(rep(1,veclen),pla[1,])
-
-    # find the normal vector by solving Yn=0,
-  # where Y is the vector and n is the normal
-  A <- cbind(t(vecpla),runif(ncol(pla)))
+  if(!is.matrix(plane)) plane <- matrix(plane,nrow=1)
+  if(nrow(plane) > ncol(plane)) plane <- plane[1:ncol(plane),]
+  veclen <- nrow(plane)-1
+  vecpla <- plane[-1,]-outer(rep(1,veclen),plane[1,])
+  A <- cbind(t(vecpla),runif(ncol(plane)))
   Q <- qr.Q(qr(A))
   n <- Q[,veclen+1]
-
-  # normalize
   n <- n/sqrt(sum(n^2))
 
   return(n)
 }
 
-#' Search for the outer simplicies that a set of points belong to
+#' Find the index of a list of outer simplices that contains a set of points x.
 #'
 #' @param y The set of points of the non-target class
-#' @param Osimp The indices of the facets associated with the outer simplicies
+#' @param Osimp The list of the outer simplices of the convex hull of the non-target class.
 #' @param x The set of reference points of the target class
 #'
-#' @return A vector indicating the indices of Osimp in which each point of x is found
+#' @return A vector indicating the indices of the list of outer simplices for each point of x.
 etsearchn <- function(y,Osimp,x){
 
-  # if the barycentric coordinates of the matching vertices are satisfied
-  # then the point is in that region
   indt <- (ncol(y)+1):(2*ncol(y))
 
   tflag <- NULL
@@ -224,29 +209,26 @@ etsearchn <- function(y,Osimp,x){
     tflag <- cbind(tflag,flag)
   }
 
-  result <- apply(tflag,1,function(t){
+  indices <- apply(tflag,1,function(t){
                           if(any(t)) return(which(t))
                           else return(F)
   })
 
-  return(result)
+  return(indices)
 }
 
-
-#' The list of the outer simplicies of the Delaunay tessellation of the non-target class
+#' The list of the outer simplices of the Delaunay tessellation of the non-target class
 #'
 #' @param y The set of points of the non-target class
 #'
-#' @return The list of outer simplicies of the Delaunay tessellation
+#' @return The list of outer simplices of the Delaunay tessellation
 outer_delaunayn <- function(y){
 
-  # find the boundary vertices and the mean of the convex hull
   cv <- convhulln(y)
   bound.vec <- unique(as.vector(cv))
   m <- apply(y[bound.vec,],2,mean)
   CM <- m
 
-  # normalize and then tak the transpose
   rays <- apply(y[bound.vec,],1,function(t){
     tp <- t-m
     tp <- tp/sqrt(sum(tp^2))
@@ -254,13 +236,11 @@ outer_delaunayn <- function(y){
   })
   rays <- t(rays)
 
-  # get end points of rays
   yt <- NULL
   for(i in 1:nrow(rays)){
     yt <- rbind(yt,y[bound.vec[i],]+rays[i,])
   }
 
-  # get the end triangles
   Osimp <- list()
   for(i in 1:nrow(cv)){
     m <- match(cv[i,],bound.vec)
@@ -269,13 +249,18 @@ outer_delaunayn <- function(y){
   return(list(Te=Osimp,CM=CM))
 }
 
-#' Given the Cartesian coordinates of one or more points, compute the generalized barycentric coordinates of these
+#' Given the Cartesian coordinates of a set of points,
+#' compute the generalized barycentric coordinates of these
 #' points with respect to an outer simplex using the method of Warren 1996.
 #'
-#' @param Osimp the outer
+#' @param Osimp A 2d-by-d matrix representing a outer simplex
 #' @param x A set of points of the target class
 #'
 #' @return The barycentric coordinates of the each points of x.
+#'
+#' @references
+#'
+#' Joe Warren. Barycentric Coordinates for Convex Polytopes. Advances in Computational Mathematics, 6:97–108, 1996.
 cart2genbary <- function(Osimp,x){
 
   if(!is.matrix(x)) x <- matrix(x,nrow=1)
@@ -287,8 +272,8 @@ cart2genbary <- function(Osimp,x){
   })
   list_face <- list(1:ncol(Osimp),(ncol(Osimp)+1):(2*ncol(Osimp)))
   faces <- rbind(face1,face2)
-  temp <- apply(faces,2,list)
-  list_face <- c(list_face,lapply(temp,unlist))
+  face_list <- apply(faces,2,list)
+  list_face <- c(list_face,lapply(face_list,unlist))
   norm_vecs <- sapply(list_face,function(t){
     n <- get_normal_vector(Osimp[t,])
     z <- setdiff(bound_vec,t)
@@ -320,12 +305,12 @@ cart2genbary <- function(Osimp,x){
   return(baryx)
 }
 
-#' Get the distances of a list of points from an outer simplex.
+#' Get the distances between a set of points and a outer simplex.
 #'
-#' @param Osimp A 2N-by-N matrix representing an outer simplex.
+#' @param Osimp A 2d-by-d matrix representing a outer simplex.
 #' @param x The set of points of the target class
 #'
-#' @return The set of distances for each point of x
+#' @return The set of distances between each point of x and a outer simplex
 getDisttoOsimp <- function(Osimp,x){
 
   nc <- ncol(Osimp)

@@ -2,15 +2,15 @@
 % Please edit documentation in R/functions.R
 \name{draw_triangle}
 \alias{draw_triangle}
-\title{Drawing a triangle}
+\title{Drawing a triangle (2-simplex)}
 \usage{
 draw_triangle(tri_list, ...)
 }
 \arguments{
-\item{tri_list}{A list of triangles, or a single triangle}
+\item{tri_list}{A list of triangles (2-simplices), or a single triangle (2-simplex)}
 
 \item{...}{Additional arguements passed on to the polygon function}
 }
 \description{
-Drawing a triangle
+Drawing a triangle (2-simplex)
 }

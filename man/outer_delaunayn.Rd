@@ -2,7 +2,7 @@
 % Please edit documentation in R/pcdfunctions.R
 \name{outer_delaunayn}
 \alias{outer_delaunayn}
-\title{The list of the outer simplicies of the Delaunay tessellation of the non-target class}
+\title{The list of the outer simplices of the Delaunay tessellation of the non-target class}
 \usage{
 outer_delaunayn(y)
 }
@@ -10,8 +10,8 @@ outer_delaunayn(y)
 \item{y}{The set of points of the non-target class}
 }
 \value{
-The list of outer simplicies of the Delaunay tessellation
+The list of outer simplices of the Delaunay tessellation
 }
 \description{
-The list of the outer simplicies of the Delaunay tessellation of the non-target class
+The list of the outer simplices of the Delaunay tessellation of the non-target class
 }

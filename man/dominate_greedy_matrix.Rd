@@ -11,7 +11,7 @@ dominate_greedy_matrix(A)
 \item{A}{The adjacency matrix}
 }
 \value{
-S A subset of the vertex set of the graph given the adjacency matrix A
+S A subset (the approximate minimum dominating set) of the vertex set of the graph given the adjacency matrix A
 }
 \description{
 Finding the approximately minimum dominating set of graph given its adjacency matrix

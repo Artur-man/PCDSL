@@ -2,22 +2,22 @@
 % Please edit documentation in R/pcd-cs.R
 \name{pcd_cs_Osimp}
 \alias{pcd_cs_Osimp}
-\title{Find the pcd of an outer simplex for a given parameter r.}
+\title{Find the central similarity PCD (CS-PCD) of the target class restricted to a single outer simplex for a given parameter tau.}
 \usage{
 pcd_cs_Osimp(x, y, CM, tau)
 }
 \arguments{
 \item{x}{The set of points of the target class}
 
-\item{y}{The coordinates of the vertices of the outer simplex}
+\item{y}{The coordinates of the vertices of the  outer simplex}
 
-\item{CM}{The median point of the convex hull of the non-target class points}
+\item{CM}{The median point of the convex hull of the non-target class}
 
 \item{tau}{The CS-PCD parameter}
 }
 \value{
-The dominating point of the outer simplex and the associated proximity region
+A list of objects associated with the dominating set of the CS-PCD restricted to a outer simplex
 }
 \description{
-Find the pcd of an outer simplex for a given parameter r.
+Find the central similarity PCD (CS-PCD) of the target class restricted to a single outer simplex for a given parameter tau.
 }

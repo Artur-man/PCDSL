@@ -2,20 +2,20 @@
 % Please edit documentation in R/pcdfunctions.R
 \name{etsearchn}
 \alias{etsearchn}
-\title{Search for the outer simplicies that a set of points belong to}
+\title{Find the index of a list of outer simplices that contains a set of points x.}
 \usage{
 etsearchn(y, Osimp, x)
 }
 \arguments{
 \item{y}{The set of points of the non-target class}
 
-\item{Osimp}{The indices of the facets associated with the outer simplicies}
+\item{Osimp}{The list of the outer simplices of the convex hull of the non-target class.}
 
 \item{x}{The set of reference points of the target class}
 }
 \value{
-A vector indicating the indices of Osimp in which each point of x is found
+A vector indicating the indices of the list of outer simplices for each point of x.
 }
 \description{
-Search for the outer simplicies that a set of points belong to
+Find the index of a list of outer simplices that contains a set of points x.
 }

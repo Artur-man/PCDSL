@@ -4,10 +4,10 @@
 \alias{get_normal_vector}
 \title{Get the normal vector of a plane}
 \usage{
-get_normal_vector(pla)
+get_normal_vector(plane)
 }
 \arguments{
-\item{pla}{N-by-N matrix representing a plane}
+\item{plane}{d-by-d matrix representing a plane}
 }
 \value{
 The normal vector of the plane.

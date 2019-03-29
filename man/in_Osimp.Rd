@@ -2,18 +2,18 @@
 % Please edit documentation in R/pcdfunctions.R
 \name{in_Osimp}
 \alias{in_Osimp}
-\title{find if points are in a set of outer simplexes}
+\title{Find if points are in a set of outer simplices}
 \usage{
 in_Osimp(Osimp, x)
 }
 \arguments{
-\item{Osimp}{A list of N+1-by-N matrices each representing an outer simplex.}
+\item{Osimp}{A list of d+1-by-d matrices each representing an outer simplex.}
 
-\item{x}{The Cartesian coordinates of a reference point}
+\item{x}{The Cartesian coordinates of a reference point.}
 }
 \value{
 A logical vector indicating in which simplex the reference point x resides.
 }
 \description{
-find if points are in a set of outer simplexes
+Find if points are in a set of outer simplices
 }

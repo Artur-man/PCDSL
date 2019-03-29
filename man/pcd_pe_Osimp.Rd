@@ -2,20 +2,20 @@
 % Please edit documentation in R/pcd-pe.R
 \name{pcd_pe_Osimp}
 \alias{pcd_pe_Osimp}
-\title{Find the pcd of an outer simplex for a given parameter r.}
+\title{Find the proportional edge PCD (PE-PCD) of the target class restricted to a single outer simplex for a given parameter r.}
 \usage{
 pcd_pe_Osimp(x, y, r)
 }
 \arguments{
 \item{x}{The set of points of the target class}
 
-\item{y}{The coordinates of the vertices of the outer simplex}
+\item{y}{The coordinates of the vertices of the  outer simplex}
 
 \item{r}{The PE-PCD parameter}
 }
 \value{
-The dominating point of the outer simplex and the associated proximity region
+A list of objects associated with the dominating set of the PE-PCD restricted to a outer simplex
 }
 \description{
-Find the pcd of an outer simplex for a given parameter r.
+Find the proportional edge PCD (PE-PCD) of the target class restricted to a single outer simplex for a given parameter r.
 }

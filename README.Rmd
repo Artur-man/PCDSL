@@ -1,30 +1,35 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-PCDSL
-=====
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# PCDSL
 
 PCDSL: The Proximity Catch Digraphs for Statistical Learning
 
 Classification methods based on Proximity Catch Digraphs. Proximity Catch Digraphs (PCDs) are special types of proximity graphs.
 
-Webpage
-------------
-
-https://www4.stat.ncsu.edu/~eceyhan/PCDwebpage/PCDWebpage.html
-
-
-Installation
-------------
+## Installation
 
 ``` r
 library(devtools)
 install_github("Artur-man/PCDSL")
 ```
 
-Example
--------
+## Example
 
-``` r
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
 # input parameters
 ntest <- 100     # test data size for each class
 nx <- 300        # training data size of x class (majority)

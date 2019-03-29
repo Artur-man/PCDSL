@@ -2,13 +2,14 @@
 % Please edit documentation in R/pcdfunctions.R
 \name{cart2genbary}
 \alias{cart2genbary}
-\title{Given the Cartesian coordinates of one or more points, compute the generalized barycentric coordinates of these
+\title{Given the Cartesian coordinates of a set of points,
+compute the generalized barycentric coordinates of these
 points with respect to an outer simplex using the method of Warren 1996.}
 \usage{
 cart2genbary(Osimp, x)
 }
 \arguments{
-\item{Osimp}{the outer}
+\item{Osimp}{A 2d-by-d matrix representing a outer simplex}
 
 \item{x}{A set of points of the target class}
 }
@@ -16,6 +17,10 @@ cart2genbary(Osimp, x)
 The barycentric coordinates of the each points of x.
 }
 \description{
-Given the Cartesian coordinates of one or more points, compute the generalized barycentric coordinates of these
+Given the Cartesian coordinates of a set of points,
+compute the generalized barycentric coordinates of these
 points with respect to an outer simplex using the method of Warren 1996.
+}
+\references{
+Joe Warren. Barycentric Coordinates for Convex Polytopes. Advances in Computational Mathematics, 6:97–108, 1996.
 }

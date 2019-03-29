@@ -2,16 +2,16 @@
 % Please edit documentation in R/pcdfunctions.R
 \name{get_plane_volume}
 \alias{get_plane_volume}
-\title{Get the volume of the simplex.}
+\title{Get the volume of a d-simplex.}
 \usage{
 get_plane_volume(simp)
 }
 \arguments{
-\item{simp}{N-by-N-1 matrix representing a simplex.}
+\item{simp}{d+1-by-d matrix representing a simplex.}
 }
 \value{
 The volume of the simplex.
 }
 \description{
-Get the volume of the simplex.
+Get the volume of a d-simplex.
 }

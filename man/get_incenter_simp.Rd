@@ -7,7 +7,7 @@
 get_incenter_simp(simp)
 }
 \arguments{
-\item{simp}{N+1-by-N matrix representing an n-simplex}
+\item{simp}{d+1-by-d matrix representing an d-simplex}
 }
 \value{
 The incenter of the outer simplex

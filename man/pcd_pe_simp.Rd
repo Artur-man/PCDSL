@@ -2,22 +2,22 @@
 % Please edit documentation in R/pcd-pe.R
 \name{pcd_pe_simp}
 \alias{pcd_pe_simp}
-\title{Find the pcd of a single simplex for a given parameter r.}
+\title{Find the proportional edge PCD (PE-PCD) of the target class restricted to a single d-simplex for a given parameter r.}
 \usage{
 pcd_pe_simp(x, y, bary, r)
 }
 \arguments{
 \item{x}{The set of points of the target class}
 
-\item{y}{The coordinates of the vertices of the n-simplex}
+\item{y}{The coordinates of the vertices of the d-simplex}
 
-\item{bary}{The barycentric coordinates of the points of x with respect to the n-simplex}
+\item{bary}{The barycentric coordinates of the points of x with respect to the d-simplex}
 
 \item{r}{The PE-PCD parameter}
 }
 \value{
-The dominating set of the n-simplex and the associated proximity regions
+A list of objects associated with the dominating set of the PE-PCD restricted to a d-simplex
 }
 \description{
-Find the pcd of a single simplex for a given parameter r.
+Find the proportional edge PCD (PE-PCD) of the target class restricted to a single d-simplex for a given parameter r.
 }

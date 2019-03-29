@@ -2,18 +2,18 @@
 % Please edit documentation in R/pcdfunctions.R
 \name{in_simp}
 \alias{in_simp}
-\title{find if points are in a set of n-simplexes}
+\title{Find if points are in a set of d-simplices}
 \usage{
 in_simp(simp, x)
 }
 \arguments{
-\item{simp}{A list of N+1-by-N matrices each representing an n-simplex.}
+\item{simp}{A list of d+1-by-d matrices each representing a d-simplex.}
 
-\item{x}{The Cartesian coordinates of a reference point}
+\item{x}{The Cartesian coordinates of a reference point.}
 }
 \value{
 A logical vector indicating in which simplex the reference point x resides.
 }
 \description{
-find if points are in a set of n-simplexes
+Find if points are in a set of d-simplices
 }
