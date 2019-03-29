@@ -2,25 +2,42 @@
 % Please edit documentation in R/pcd.R
 \name{pcd_inhull_classifier}
 \alias{pcd_inhull_classifier}
-\title{The PCD classifier based on the proximity regions of the target class which are restricted to the inside of the convex hull of
-the non-target class}
+\title{The PCD classifier based on the cover of the two (or more) classes wherein the cover of
+the target class is restricted to the inside of the convex hull of the non-target class.}
 \usage{
-pcd_inhull_classifier(datax, classes, method = "pe", param = 1)
+pcd_inhull_classifier(data, classes, map = "pe", param = 1)
 }
 \arguments{
-\item{datax}{The labelled data set}
+\item{data}{An n-by-d matrix of the training data set.}
 
-\item{classes}{A categorical variable indicating the classes of the points in the data set}
+\item{classes}{A vector of length n indicating the labels of the classes.}
 
-\item{method}{The Proximity Map associated with the classifier. "pe" for the Proportional-edge proximity maps
+\item{map}{The Proximity Map associated with the classifier. "pe" for the Proportional-edge proximity maps.
 and "cs" for the Central-similarity proximity maps.}
 
 \item{param}{The value of the parameter associated with the proximity map.}
 }
 \value{
-A proximity catch digraph with the minimum dominating set and the associated proximity regions
+A proximity catch digraph (PCD)
 }
 \description{
-The PCD classifier based on the proximity regions of the target class which are restricted to the inside of the convex hull of
-the non-target class
+The PCD classifier based on the cover of the two (or more) classes wherein the cover of
+the target class is restricted to the inside of the convex hull of the non-target class.
+}
+\examples{
+
+# input parameters
+ntest <- 100     # test data size for each class
+nx <- 300        # training data size of x class (majority)
+r <- 0.1         # Imbalance Ratio
+de <- 0.5        # delta, the overlapping parameter
+dimx <- 2        # number of dimensions
+
+# training the classifier
+set.seed(1)
+x0 <- matrix(runif(dimx*nx,0,1),nrow=nx)
+x1 <- matrix(runif(dimx*nx*r,de,1+de),nrow=nx*r)
+x <- rbind(x0,x1)
+classes <- rep(1:2,c(nx,nx*r))
+graph_pcd <- pcd_inhull_classifier(x,classes,map="pe",param = 1)
 }
