@@ -10,7 +10,7 @@ Classification methods based on Proximity Catch Digraphs. Proximity Catch Digrap
 Webpage
 ------------
 
-https://www4.stat.ncsu.edu/~eceyhan/PCDwebpage/PCDWebpage.html
+http://webhome.auburn.edu/~ezc0066/PCDwebpage/index.html
 
 
 Installation
