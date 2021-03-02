@@ -5,6 +5,8 @@ PCDSL
 
 PCDSL: The Proximity Catch Digraphs for Statistical Learning
 
+Artür Manukyan, Elvan Ceyhan
+
 Classification methods based on Proximity Catch Digraphs. Proximity Catch Digraphs (PCDs) are special types of proximity graphs.
 
 Webpage
