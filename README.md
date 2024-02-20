@@ -20,7 +20,7 @@ Installation
 
 ``` r
 library(devtools)
-install_github("Artur-man/PCDSL")
+devtools::install_github("Artur-man/PCDSL")
 ```
 
 Example
